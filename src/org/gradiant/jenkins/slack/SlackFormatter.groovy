@@ -1,7 +1,7 @@
 package org.gradiant.jenkins.slack
 
 
-String format(String title = '', String message = '', String testSummary = '') {
+String format(String title = '', String message = '', String testSummary = '', String additionalMessage = '') {
     def helper = new JenkinsHelper()
 
     def project = helper.getProjectName()
@@ -16,6 +16,7 @@ String format(String title = '', String message = '', String testSummary = '') {
     result = "${result} - #${buildNumber} ${title.trim()} (<${url}|Open>)"
     if (message) result = result + "\nChanges:\n\t ${message.trim()}"
     if (testSummary) result = result + "\n ${testSummary}"
+    if (additionalMessage) result = result + "\n ${additionalMessage}"
 
     return result
 }
