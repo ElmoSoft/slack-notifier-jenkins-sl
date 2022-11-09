@@ -4,7 +4,7 @@ import hudson.tasks.test.AbstractTestResultAction
 import hudson.model.Actionable
 
 @NonCPS
-String getTestSummary() {
+String getTestSummary( titleMessage = "Test status:\n\t") {
   def testResultAction = currentBuild.rawBuild.getAction(AbstractTestResultAction.class)
   def summary = ""
 
@@ -13,7 +13,7 @@ String getTestSummary() {
     def failed = testResultAction.getFailCount()
     def skipped = testResultAction.getSkipCount()
 
-    summary = "Test status:\n\t"
+    summary = titleMessage
     summary = summary + ("Passed: " + (total - failed - skipped))
     summary = summary + (", Failed: " + failed)
     summary = summary + (", Skipped: " + skipped)
