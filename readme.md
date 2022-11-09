@@ -98,3 +98,20 @@ pipeline {
  }
 }
 ```
+
+#### Notification example
+
+notify.notifyShortResult("env")
+```
+E2e_Smoke_Suite - #10 Duration: 1 hr 44 min (Open)
+[env] Passed: 10, Failed: 1, Skipped: 0
+```
+
+
+notify.notifyResult("Message here")
+```
+E2e_Smoke_Suite » origin/master - #11 Success after 13 min (Open)
+Test status:
+    Passed: 11, Failed: 0, Skipped: 0
+Message here`
+```

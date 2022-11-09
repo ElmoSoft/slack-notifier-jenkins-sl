@@ -53,7 +53,25 @@ void notifyResult(String additionalMessage = '') {
     testSummary = jenkinsTestsSummary.getTestSummary()
   }
 
-  def message = formatter.format "${statusMessage} after ${duration}", changes, testSummary, additionalMessage
+  def message = formatter.format "${statusMessage} after ${duration}", changes, testSummary, additionalMessage, true
+
+  sender.send message, color
+}
+
+void notifyShortResult(String environment = '') {
+  JenkinsHelper helper = new JenkinsHelper()
+  JenkinsStatus status = new JenkinsStatus()
+  SlackFormatter formatter = new SlackFormatter()
+  SlackSender sender = new SlackSender()
+  JenkinsTestsSummary jenkinsTestsSummary = new JenkinsTestsSummary()
+
+  def color = status.getStatusColor()
+  def duration = helper.getDuration()
+
+  String changes = ''
+  String testSummary = jenkinsTestsSummary.getTestSummary("[$environment] ")
+
+  def message = formatter.format "Duration ${duration}", changes, testSummary
 
   sender.send message, color
 }
