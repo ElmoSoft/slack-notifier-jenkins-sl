@@ -58,7 +58,7 @@ void notifyResult(String additionalMessage = '') {
   sender.send message, color
 }
 
-void notifyShortResult(String environment = '') {
+void notifyShortResult(String environment = '', boolean isQase = false) {
   JenkinsHelper helper = new JenkinsHelper()
   JenkinsStatus status = new JenkinsStatus()
   SlackFormatter formatter = new SlackFormatter()
@@ -69,8 +69,7 @@ void notifyShortResult(String environment = '') {
   def duration = helper.getDuration()
 
   String changes = ''
-  String testSummary = jenkinsTestsSummary.getTestSummary("[$environment] ")
-
+  String testSummary = jenkinsTestsSummary.getTestSummary("[$environment] ", isQase)
   def message = formatter.format "Duration ${duration}", changes, testSummary
 
   sender.send message, color
